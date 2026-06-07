@@ -34,11 +34,12 @@ $env:JAVA_HOME = "C:\Program Files\Microsoft\jdk-25.0.3.9-hotspot"
 .\gradlew.bat runClient
 ```
 
-## Установка (если есть собранный JAR)
+## Установка
 
 1. Установите **Minecraft 26.1.2** и **Forge 64.0.4**.
-2. Скопируйте JAR в папку `mods`.
-3. Запустите игру. Ожидайте неполный контент — см. [PORT_STATUS.md](PORT_STATUS.md).
+2. Скачайте JAR из [Releases](https://github.com/nexxus-pixel/forestry-26.1-port/releases) или соберите сами (`gradlew build`).
+3. Скопируйте JAR в папку `mods`.
+4. Запустите игру. Ожидайте неполный контент — см. [PORT_STATUS.md](PORT_STATUS.md).
 
 ## Что уже работает (частично)
 
