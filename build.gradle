@@ -1,0 +1,150 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'net.minecraftforge.gradle' version '[7.0.17,8)'
+}
+
+version = '2.10.0-26.1-port'
+group = 'thedarkcolour.forestry'
+base.archivesName = 'forestry-26.1.2'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+// Port phases: optional compat + incomplete client/model migrations excluded (see forestry-port/PORT_PLAN.txt)
+sourceSets.main.java {
+    exclude 'forestry/compat/**'
+    exclude '**/recipes/jei/**'
+    exclude '**/compat/**'
+    exclude 'forestry/arboriculture/charcoal/jei/**'
+    exclude 'forestry/apiculture/villagers/**'
+    exclude 'forestry/arboriculture/villagers/**'
+    exclude 'forestry/core/data/**'
+    // Custom geometry models (UnbakedGeometry rewrite)
+    exclude 'forestry/arboriculture/models/**'
+    exclude 'forestry/core/models/**'
+    exclude 'forestry/lepidopterology/render/ButterflyItemModel.java'
+    exclude 'forestry/storage/client/**'
+    exclude 'forestry/api/apiculture/IBeeModelProvider.java'
+    // BER pending migration (RenderEngine is done)
+    // Client handlers (EventBus 7 + deferred rendering) — do NOT use forestry/**/client (matches api/client)
+    exclude 'forestry/core/client/**'
+    exclude 'forestry/apiculture/proxy/**'
+    exclude 'forestry/arboriculture/client/**'
+    exclude 'forestry/cultivation/proxy/CultivationClientHandler.java'
+    exclude 'forestry/lepidopterology/proxy/**'
+    exclude 'forestry/energy/client/**'
+    exclude 'forestry/factory/client/**'
+    exclude 'forestry/farming/client/**'
+    exclude 'forestry/worktable/client/**'
+    // Particles (Codec-only ParticleOptions in 26.1)
+    exclude 'forestry/apiculture/particles/**'
+    exclude 'forestry/core/particles/**'
+    // Boats (entity/renderer API overhaul)
+    exclude 'forestry/arboriculture/entities/**'
+    exclude 'forestry/arboriculture/items/ItemForestryBoat.java'
+    exclude 'forestry/arboriculture/items/ItemGermlingGE.java'
+    exclude 'forestry/arboriculture/items/ForestryBoatDispenserBehavior.java'
+    // Loot functions (LootItemFunctionType removed)
+    exclude 'forestry/arboriculture/loot/CountBlockFunction.java'
+    // Phase 5 items (ArmorItem/TieredItem/InteractionResultHolder removed)
+    exclude 'forestry/apiculture/items/ItemArmorApiarist.java'
+    exclude 'forestry/apiculture/items/ItemScoop.java'
+    exclude 'forestry/apiculture/items/ItemSmoker.java'
+    exclude 'forestry/core/items/HasRemnants.java'
+    exclude 'forestry/core/items/definitions/ToolTier.java'
+    exclude 'forestry/core/items/definitions/FluidHandlerItemForestry.java'
+    exclude 'forestry/core/items/ForestersManualItem.java'
+    exclude 'forestry/core/items/ItemAssemblyKit.java'
+    exclude 'forestry/core/items/ItemFluidContainerForestry.java'
+    exclude 'forestry/core/items/ItemWithGui.java'
+    exclude 'forestry/core/items/ItemPipette.java'
+    exclude 'forestry/core/genetics/ItemResearchNote.java'
+    exclude 'forestry/storage/items/**'
+    exclude 'forestry/mail/items/**'
+    exclude 'forestry/apiculture/genetics/effects/PotionBeeEffect.java'
+    // Loot functions (LootItemFunctionType -> MapCodec in 26.1)
+    exclude 'forestry/core/loot/**'
+    // More Phase 5 items
+    exclude 'forestry/core/items/ItemSpectacles.java'
+    exclude 'forestry/core/items/ItemAlyzer.java'
+    exclude 'forestry/core/items/ItemSolderingIron.java'
+    exclude 'forestry/apiculture/genetics/effects/AscensionBeeEffect.java'
+    exclude 'forestry/apiculture/genetics/effects/PotionBeeEffectExclusive.java'
+    exclude 'forestry/core/items/ItemBlockTesr.java'
+    exclude 'forestry/core/registration/VillagerTrade.java'
+    exclude 'forestry/core/render/ForestryBewlr.java'
+    exclude 'forestry/apiimpl/client/genetics/AnalyzerScreenGraphics.java'
+    exclude 'forestry/plugin/client/**'
+    exclude 'forestry/core/render/ForestryTextureManager.java'
+    exclude 'forestry/core/render/ForestrySpriteUploader.java'
+    exclude 'forestry/core/utils/JeiUtil.java'
+    exclude 'forestry/core/utils/RenderUtil.java'
+    exclude 'forestry/**/compat/**'
+    exclude 'forestry/mail/**'
+    exclude 'forestry/api/mail/**'
+    exclude '**/package-info.java'
+    exclude 'forestry/sorting/client/**'
+    // Full GUI widgets/ledgers deferred (26.1 GuiGraphicsExtractor migration) — minimal screens in core/gui/minimal
+    exclude 'forestry/core/gui/Gui*.java'
+    exclude 'forestry/core/gui/*Screen.java'
+    exclude 'forestry/core/gui/ledgers/**'
+    exclude 'forestry/core/gui/widgets/**'
+    exclude 'forestry/core/gui/TextLayoutHelper.java'
+    exclude 'forestry/core/gui/Drawable.java'
+    exclude 'forestry/core/gui/GuiUtil.java'
+    exclude 'forestry/core/gui/GuiTextBox.java'
+    exclude 'forestry/core/gui/CycleTimer.java'
+    exclude 'forestry/core/gui/buttons/**'
+    exclude 'forestry/**/gui/Gui*.java'
+    exclude 'forestry/**/gui/widgets/**'
+    exclude 'forestry/**/screen/**'
+    exclude 'forestry/core/circuits/GuiSolderingIron.java'
+    exclude 'forestry/farming/gui/FarmLedger.java'
+    exclude 'forestry/farming/gui/FarmLogicSlot.java'
+    exclude 'forestry/sorting/gui/ISelectableProvider.java'
+    exclude 'forestry/sorting/gui/widgets/**'
+    exclude 'forestry/worktable/screens/WorktableScreen.java'
+    exclude 'forestry/worktable/screens/widgets/**'
+    exclude 'forestry/storage/**'
+    exclude 'forestry/lepidopterology/features/LepidopterologyRecipes.java'
+    exclude 'forestry/lepidopterology/recipe/ButterflyMatingRecipe.java'
+}
+
+minecraft {
+    runs {
+        configureEach {
+            workingDir = layout.projectDirectory.dir('run')
+            systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
+            systemProperty 'forge.enabledGameTestNamespaces', 'forestry'
+        }
+
+        register('client')
+        register('server') { args '--nogui' }
+        register('gameTestServer')
+        register('data') {
+            workingDir = layout.projectDirectory.dir('run-data')
+            args '--mod', 'forestry', '--all', '--output', layout.projectDirectory.dir('src/generated/resources'), '--existing', layout.projectDirectory.dir('src/main/resources')
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+
+dependencies {
+    implementation minecraft.dependency('net.minecraftforge:forge:26.1.2-64.0.4')
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.1'
+    compileOnly 'org.jetbrains:annotations:24.1.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xmaxerrs' << '200'
+}

@@ -1,0 +1,40 @@
+package forestry.core.utils;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+
+import javax.annotation.Nullable;
+
+public abstract class EntityUtil {
+	@Nullable
+	public static <T extends Mob> T spawnEntity(Level world, EntityType<T> type, double x, double y, double z) {
+		T entityLiving = type.create(world, EntitySpawnReason.MOB_SUMMONED);
+		if (entityLiving == null) {
+			return null;
+		}
+		return spawnEntity(world, entityLiving, x, y, z);
+	}
+
+	public static <T extends Mob> T spawnEntity(Level world, T living, double x, double y, double z) {
+		living.snapTo(x, y, z, Mth.wrapDegrees(world.getRandom().nextFloat() * 360.0f), 0.0f);
+		living.yHeadRot = living.getYRot();
+		living.yBodyRot = living.getYRot();
+		ServerLevelAccessor spawnLevel = world instanceof ServerLevelAccessor accessor ? accessor : null;
+		DifficultyInstance diff = world instanceof ServerLevel serverLevel
+			? serverLevel.getCurrentDifficultyAt(BlockPos.containing(x, y, z))
+			: new DifficultyInstance(world.getDifficulty(), world.getGameTime(), 0L, 0.0f);
+		if (spawnLevel != null) {
+			living.finalizeSpawn(spawnLevel, diff, EntitySpawnReason.MOB_SUMMONED, null);
+		}
+		world.addFreshEntity(living);
+		living.playAmbientSound();
+		return living;
+	}
+}

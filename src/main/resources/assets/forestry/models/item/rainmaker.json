@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "layer0":  "forestry:item/rainmaker"
+                 },
+    "parent":  "item/generated"
+}
+

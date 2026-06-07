@@ -1,0 +1,15 @@
+{
+    "custom":  {
+                   "parent":  "minecraft:block/cube_column",
+                   "render_type":  "minecraft:cutout",
+                   "textures":  {
+                                    "end":  "forestry:block/farm/valve",
+                                    "side":  "forestry:block/farm/valve"
+                                }
+               },
+    "type":  "minecraft:composite",
+    "normal":  {
+                   "parent":  "minecraft:block/bricks",
+                   "render_type":  "minecraft:solid"
+               }
+}

@@ -1,0 +1,6 @@
+﻿{
+    "model":  {
+                  "type":  "minecraft:model",
+                  "model":  "forestry:block/macrocarpa_stripped_wood"
+              }
+}

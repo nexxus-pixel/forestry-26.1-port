@@ -1,0 +1,135 @@
+package forestry.core.data.models;
+
+import com.google.common.collect.Iterables;
+import forestry.api.ForestryConstants;
+import forestry.api.arboriculture.ITreeSpecies;
+import forestry.api.arboriculture.genetics.ITreeSpeciesType;
+import forestry.api.modules.ForestryModuleIds;
+import forestry.apiculture.features.ApicultureItems;
+import forestry.core.data.builder.FilledCrateModelBuilder;
+import forestry.core.fluids.ForestryFluids;
+import forestry.core.utils.ModUtil;
+import forestry.core.utils.SpeciesUtil;
+import forestry.cultivation.blocks.BlockPlanter;
+import forestry.cultivation.blocks.BlockTypePlanter;
+import forestry.cultivation.features.CultivationBlocks;
+import forestry.lepidopterology.features.LepidopterologyItems;
+import forestry.modules.features.FeatureBlock;
+import forestry.modules.features.FeatureItem;
+import forestry.modules.features.ModFeatureRegistry;
+import forestry.storage.features.CrateItems;
+import forestry.storage.items.ItemBackpack;
+import forestry.storage.items.ItemCrated;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.Map;
+
+import static forestry.core.data.models.ForestryBlockStateProvider.file;
+
+public class ForestryItemModelProvider extends ItemModelProvider {
+	public ForestryItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+		super(output, ForestryConstants.MOD_ID, existingFileHelper);
+	}
+
+	@Override
+	protected void registerModels() {
+		withExistingParent(LepidopterologyItems.CATERPILLAR_GE.name(), mcLoc("item/generated"))
+			.texture("layer0", ForestryConstants.forestry("item/caterpillar.body2"))
+			.texture("layer1", ForestryConstants.forestry("item/caterpillar.body"));
+		withExistingParent(LepidopterologyItems.SERUM_GE.name(), mcLoc("item/generated"))
+			.texture("layer0", ForestryConstants.forestry("item/liquids/jar.bottle"))
+			.texture("layer1", ForestryConstants.forestry("item/liquids/jar.contents"));
+
+		for (FeatureItem<ItemCrated> featureCrated : CrateItems.getCrates()) {
+			Item containedItem = featureCrated.get().getContained().getItem();
+			String id = featureCrated.name();
+
+			if (ApicultureItems.BEE_COMBS.itemEqual(containedItem)) {
+				filledCrateModelLayered(id, modLoc("item/bee_combs.0"), modLoc("item/bee_combs.1"));
+			} else if (ApicultureItems.POLLEN_CLUSTER.itemEqual(containedItem)) {
+				filledCrateModelLayered(id, modLoc("item/pollen.0"), modLoc("item/pollen.1"));
+			} else {
+				Identifier contained = ModUtil.getRegistryName(containedItem);
+				Identifier contentsTexture;
+
+				if (containedItem instanceof BlockItem && !(containedItem instanceof ItemNameBlockItem)) {
+					contentsTexture = Identifier.parse(contained.getNamespace(), "block/" + contained.getPath());
+				} else {
+					contentsTexture = Identifier.parse(contained.getNamespace(), "item/" + contained.getPath());
+				}
+
+				filledCrateModel(id, contentsTexture);
+
+			}
+		}
+
+		// 2d items
+		basicItem(ApicultureItems.FRAME_CREATIVE.get());
+
+		// manual overrides
+		filledCrateModel(CrateItems.CRATED_CACTUS.name(), mcLoc("block/cactus_side"));
+		filledCrateModel(CrateItems.CRATED_MYCELIUM.name(), mcLoc("block/mycelium_side"));
+		filledCrateModel(CrateItems.CRATED_GRASS_BLOCK.name(), mcLoc("block/grass_block_top"));
+		filledCrateModel(CrateItems.CRATED_PROPOLIS.name(), modLoc("item/propolis.0"));
+
+		for (Map.Entry<BlockTypePlanter, FeatureBlock<BlockPlanter, BlockItem>> cell : Iterables.concat(CultivationBlocks.MANAGED_PLANTER.getFeatureByType().entrySet(), CultivationBlocks.MANUAL_PLANTER.getFeatureByType().entrySet())) {
+			Block block = cell.getValue().block();
+			withExistingParent(ForestryBlockStateProvider.path(block), ForestryConstants.forestry("block/" + cell.getKey().getSerializedName()));
+		}
+
+		// Buckets
+		for (ForestryFluids fluid : ForestryFluids.values()) {
+			BucketItem item = fluid.getBucket();
+			if (item != null) {
+				getBuilder(path(item))
+					.customLoader(DynamicFluidContainerModelBuilder::begin)
+					.fluid(fluid.getFluid())
+					.end()
+					.parent(getExistingFile(Identifier.parse("forge:item/bucket")));
+			}
+		}
+
+		// Backpacks
+		for (RegistryObject<Item> object : ModFeatureRegistry.get(ForestryModuleIds.STORAGE).getRegistry(Registries.ITEM).getEntries()) {
+			if (object.get() instanceof ItemBackpack) {
+				String path = object.getId().getPath();
+				boolean woven = path.endsWith("woven");
+
+				withExistingParent(path, woven ? modLoc("item/backpack/woven_neutral") : modLoc("item/backpack/normal_neutral"))
+					.override().predicate(mcLoc("mode"), 1).model(file(woven ? modLoc("item/backpack/woven_locked") : modLoc("item/backpack/normal_locked"))).end()
+					.override().predicate(mcLoc("mode"), 2).model(file(woven ? modLoc("item/backpack/woven_receive") : modLoc("item/backpack/normal_receive"))).end()
+					.override().predicate(mcLoc("mode"), 3).model(file(woven ? modLoc("item/backpack/woven_resupply") : modLoc("item/backpack/normal_resupply"))).end();
+			}
+		}
+	}
+
+	private static String path(Item block) {
+		return ModUtil.getRegistryName(block).getPath();
+	}
+
+	private void filledCrateModel(String id, Identifier texture) {
+		getBuilder(id)
+			.customLoader(FilledCrateModelBuilder::begin)
+			.layer1(texture)
+			.end();
+	}
+
+	private void filledCrateModelLayered(String id, Identifier layer1, Identifier layer2) {
+		getBuilder(id)
+			.customLoader(FilledCrateModelBuilder::begin)
+			.layer1(layer1)
+			.layer2(layer2)
+			.end();
+	}
+}

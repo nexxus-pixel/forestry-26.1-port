@@ -1,0 +1,6 @@
+﻿{
+    "model":  {
+                  "type":  "minecraft:model",
+                  "model":  "forestry:block/kapok_stripped_wood"
+              }
+}

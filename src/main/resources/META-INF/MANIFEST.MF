@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Specification-Title: Forestry
+Specification-Vendor: SirSengir
+Specification-Version: 2.10.0
+Implementation-Title: ForestryCE
+Implementation-Version: 2.10.0
+Implementation-Vendor: SirSengir
+Implementation-Timestamp: 2026-02-04T22:31:34+0000
+

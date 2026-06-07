@@ -1,0 +1,6 @@
+﻿{
+    "model":  {
+                  "type":  "minecraft:model",
+                  "model":  "forestry:block/jacaranda_stripped_wood"
+              }
+}

@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "layer0":  "forestry:item/engine_clockwork"
+                 },
+    "parent":  "item/generated"
+}
+

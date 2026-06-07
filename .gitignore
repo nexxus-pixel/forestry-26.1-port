@@ -1,0 +1,41 @@
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# forge run directories
+run
+run-data
+
+# Port workspace artifacts (decompilation / temp — not mod source)
+tmp-decomp/
+tmp-decomp2/
+/assets/
+/com/
+/net/
+/data/
+/META-INF/
+
+# Forge MDK extras (not part of Forestry)
+forge_logo.png
+mcplogo.png
+url.png
+changelog.txt
+pack.mcmeta
+
+# Generated resources (recreated by runData)
+src/generated/

@@ -1,0 +1,6 @@
+﻿{
+    "model":  {
+                  "type":  "minecraft:model",
+                  "model":  "forestry:block/acacia_desert_fence_post"
+              }
+}

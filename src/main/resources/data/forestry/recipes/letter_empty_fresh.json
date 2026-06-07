@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    [
+      {
+        "tag": "forestry:propolis"
+      },
+      {
+        "tag": "forge:slimeballs"
+      }
+    ]
+  ],
+  "result": {
+    "item": "forestry:letter_empty_fresh"
+  }
+}

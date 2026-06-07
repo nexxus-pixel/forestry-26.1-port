@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[64,)"
+issueTrackerURL = "https://github.com/nexxus-pixel/forestry-26.1-port/issues"
+
+license = "GNU Lesser General Public License v3"
+
+[[mods]]
+modId = "forestry"
+version = "2.10.0-26.1-port"
+displayName = "Forestry (26.1 Port)"
+displayURL = "https://github.com/nexxus-pixel/forestry-26.1-port"
+credits = "mistaqur, Binnie, CovertJaguar, MysteriousAges, Nirek, Temp1011, ramidzkh, EnderiumSmith, Spearkiller; port by nexxus-pixel"
+authors = "SirSengir, mezz, Nedelosk, thedarkcolour"
+description = '''
+	Unofficial port of Forestry Community Edition to Minecraft 26.1.2 (NeoForge/Forge).
+	Work in progress: blocks register in-game, but most gameplay systems are not functional yet.
+	Based on Forestry CE 2.10.0 for 1.20.1 — https://github.com/thedarkcolour/ForestryCE
+	'''
+
+[[dependencies.forestry]]
+modId = "forge"
+mandatory = true
+versionRange = "[64,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.forestry]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[26.1.2,26.2,)"
+ordering = "NONE"
+side = "BOTH"

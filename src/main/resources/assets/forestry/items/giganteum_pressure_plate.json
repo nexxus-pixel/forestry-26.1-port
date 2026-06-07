@@ -1,0 +1,6 @@
+﻿{
+    "model":  {
+                  "type":  "minecraft:model",
+                  "model":  "forestry:block/giganteum_pressure_plate"
+              }
+}

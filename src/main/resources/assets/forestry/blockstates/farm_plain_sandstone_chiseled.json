@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "band=false": {
+      "model": "forestry:block/farm_plain_sandstone_chiseled"
+    },
+    "band=true": {
+      "model": "forestry:block/farm_plain_sandstone_chiseled_band"
+    }
+  }
+}

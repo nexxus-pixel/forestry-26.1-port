@@ -1,0 +1,15 @@
+{
+    "custom":  {
+                   "parent":  "minecraft:block/cube_column",
+                   "render_type":  "minecraft:cutout",
+                   "textures":  {
+                                    "end":  "forestry:block/farm/control",
+                                    "side":  "forestry:block/farm/control"
+                                }
+               },
+    "type":  "minecraft:composite",
+    "normal":  {
+                   "parent":  "minecraft:block/chiseled_sandstone",
+                   "render_type":  "minecraft:solid"
+               }
+}

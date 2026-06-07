@@ -1,0 +1,10 @@
+{
+  "loader": "forge:fluid_container",
+  "fluid": "minecraft:water",
+  "parent": "forge:item/default",
+  "gui_light": "front",
+  "textures": {
+    "base": "forestry:item/liquids/refractory.bottle",
+    "fluid": "forestry:item/liquids/refractory.contents"
+  }
+}

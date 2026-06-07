@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "layer0":  "forestry:item/squeezer"
+                 },
+    "parent":  "item/generated"
+}
+

@@ -1,0 +1,17 @@
+﻿{
+    "model":  {
+                  "tints":  [
+                                {
+                                    "type":  "forestry:colored_item",
+                                    "index":  0
+                                },
+                                {
+                                    "type":  "forestry:colored_item",
+                                    "index":  1
+                                }
+                            ],
+                  "model":  "forestry:item/bee_comb_omega",
+                  "type":  "minecraft:model"
+              }
+}
+

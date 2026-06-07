@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "band=false": {
+      "model": "forestry:block/farm_plain_brick_nether"
+    },
+    "band=true": {
+      "model": "forestry:block/farm_plain_brick_nether_band"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "parent": "forestry:item/mirror_hands",
+  "stage": "drone",
+  "loader": "forestry:bee_ge"
+}

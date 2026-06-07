@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "layer0":  "forestry:item/bee_chest"
+                 },
+    "parent":  "item/generated"
+}
+

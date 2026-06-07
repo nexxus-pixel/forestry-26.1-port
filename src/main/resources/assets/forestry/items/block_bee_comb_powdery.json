@@ -1,0 +1,10 @@
+﻿{
+  "model": {
+    "type": "minecraft:model",
+    "model": "forestry:item/bee_combs",
+    "tints": [
+      { "type": "forestry:colored_item", "index": 0 },
+      { "type": "forestry:colored_item", "index": 1 }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "band=false": {
+      "model": "forestry:block/farm_plain_cut_sandstone"
+    },
+    "band=true": {
+      "model": "forestry:block/farm_plain_cut_sandstone_band"
+    }
+  }
+}

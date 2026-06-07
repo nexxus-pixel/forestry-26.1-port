@@ -1,0 +1,12 @@
+package forestry.arboriculture.blocks;
+
+import forestry.modules.features.RegistrationContext;
+
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+
+public class BlockCharcoal extends Block {
+	public BlockCharcoal() {
+		super(RegistrationContext.of(p -> p.strength(5.0f, 10.0f).sound(SoundType.STONE)));
+	}
+}

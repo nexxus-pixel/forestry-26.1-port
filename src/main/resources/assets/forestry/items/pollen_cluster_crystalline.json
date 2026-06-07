@@ -1,0 +1,13 @@
+﻿{
+    "model":  {
+                  "tints":  [
+                                {
+                                    "type":  "forestry:colored_item",
+                                    "index":  0
+                                }
+                            ],
+                  "model":  "forestry:item/pollen_cluster_crystalline",
+                  "type":  "minecraft:model"
+              }
+}
+

@@ -1,0 +1,6 @@
+﻿{
+  "model": {
+    "type": "minecraft:model",
+    "model": "forestry:item/farm_control_stone_brick"
+  }
+}
